@@ -12,7 +12,6 @@ https://github.com/simonsanchez/udportfolio
 
 1. Achieve a PageSpeed score of 90 or better, on both Mobile and Desktop, for the file index.html
 2. Achieve a frame rate of 60fps for the file views/pizza.html
-* All changes for this portion were made in views/js/main.js
 
 As of the time of this writing, I am currently hosting index.html with GitHub Pages. You can find a link to the live site at:
 http://simonsanchez.github.io./
@@ -22,14 +21,15 @@ All testing was done on the most recent version of Google Chrome.
 ###Optimizations
 #####index.html
 The following optimizations were made:
-*the main stylesheet was relatively short, and so all CSS was inlined into the head of the document
-*the secondary stylesheet for printing was given a media query
-*made all script tags asynchronous
-*used compressed images
+
+* the main stylesheet was relatively short, and so all CSS was inlined into the head of the document
+* the secondary stylesheet for printing was given a media query
+* made all script tags asynchronous
+* used compressed images
 
 #####views/js/main.js
 The following optimizations were made:
-*moved various calculations outside the for-loop in the following function
+* moved various calculations outside the for-loop in the following function
 ```js
 // Iterates through pizza elements on the page and changes their widths
 
@@ -53,7 +53,7 @@ function changePizzaSizes(size) {
 	}
 }
 ```
-*similar calcuations were carried out in this function
+* similar calcuations were carried out in this function
 ```js
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
