@@ -25,7 +25,7 @@ The following optimizations were made:
 * the main stylesheet was relatively short, and so all CSS was inlined into the head of the document
 * the secondary stylesheet for printing was given a media query
 * made all script tags asynchronous
-* used compressed images
+* used compressed images provided by PageSpeed Insights
 
 #####views/js/main.js
 The following optimizations were made:
@@ -116,7 +116,7 @@ function updatePositions() {
   }
 }
 ```
-*lastly, the number of pizzas on load were significantly reduced from 200 to 25
+* lastly, the number of pizzas on load were significantly reduced from 200 to 25
 ```js
 // Generates the sliding pizzas when the page loads.
 /*
