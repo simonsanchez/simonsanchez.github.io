@@ -23,6 +23,7 @@ All testing was done on the most recent version of Google Chrome.
 The following optimizations were made:
 
 * the main stylesheet was relatively short, and so all CSS was inlined into the head of the document
+* instead of linking to the Google Fonts API, I applied @font-face rules (a big thanks to my instructor at UdaciHome for assisting me with this portion)
 * the secondary stylesheet for printing was given a media query
 * made all script tags asynchronous
 * used compressed images provided by PageSpeed Insights
