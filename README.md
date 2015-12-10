@@ -1,65 +1,141 @@
-## Website Performance Optimization portfolio project
+##Website Performance Optimization - Project 4
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+###Getting started
 
-To get started, check out the repository, inspect the code,
+All files can be downloaded here:
+https://github.com/simonsanchez/simonsanchez.github.io
 
-### Getting started
+Original project files can be found here:
+https://github.com/simonsanchez/udportfolio
 
-Some useful tips to help you get started:
+###Objectives
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+1. Achieve a PageSpeed score of 90 or better, on both Mobile and Desktop, for the file index.html
+2. Achieve a frame rate of 60fps for the file views/pizza.html
+* All changes for this portion were made in views/js/main.js
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+As of the time of this writing, I am currently hosting index.html with GitHub Pages. You can find a link to the live site at:
+http://simonsanchez.github.io./
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to make your local server accessible remotely.
+All testing was done on the most recent version of Google Chrome.
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ngrok 8080
-  ```
+###Optimizations
+#####index.html
+The following optimizations were made:
+*the main stylesheet was relatively short, and so all CSS was inlined into the head of the document
+*the secondary stylesheet for printing was given a media query
+*made all script tags asynchronous
+*used compressed images
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+#####views/js/main.js
+The following optimizations were made:
+*moved various calculations outside the for-loop in the following function
+```js
+// Iterates through pizza elements on the page and changes their widths
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+/*
+Simon Optimizations:
+- We can make a variable to store all the pizzas and put it outside the loop. This avoids
+having to obtain this collection on every iteration.
+- Instead of using document.querySelectorAll, we utilize document.getElementsByClassName to gather the desired collection.
+- We also note that dx and newwidth always yield the same values, respectivey, on every
+iteration. We move these calculations outside the loop as well and use the first element in our pizza collection for the calculations.
+*/
+var allPizzas = document.getElementsByClassName("randomPizzaContainer");
+var allPizzasLength = allPizzas.length;
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+var dx = determineDx(allPizzas[0], size);
+var newwidth = (allPizzas[0].offsetWidth + dx) + 'px';
 
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
+function changePizzaSizes(size) {
+	for (var i = 0; i < allPizzasLength; i++) {
+	  allPizzas[i].style.width = newwidth;
+	}
+}
+```
+*similar calcuations were carried out in this function
+```js
+// Moves the sliding background pizzas based on scroll position
+function updatePositions() {
+  frame++;
+  window.performance.mark("mark_start_frame");
 
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+  /*
+  Simon Optimizations:
+  - As before, we use document.getElementsByClassName to obtain our collection.
+  - We note that document.body.scrollTop/1250 is the same throughout every iteration.
+  As with the previous calculations, we move it outside the loop.
+  - We also note that inside our loop, the variable 'phase' is only taking five unique
+  values. We calculate these values and store them in an array outside the loop.
 
-### Sample Portfolios
+  - Consider using transform instead of style.left ***
+  */
 
-Feeling uninspired by the portfolio? Here's a list of cool portfolios I found after a few minutes of Googling.
+  var items = document.getElementsByClassName("mover");
+  var scrollVal = document.body.scrollTop/1250;
 
-* <a href="http://www.reddit.com/r/webdev/comments/280qkr/would_anybody_like_to_post_their_portfolio_site/">A great discussion about portfolios on reddit</a>
-* <a href="http://ianlunn.co.uk/">http://ianlunn.co.uk/</a>
-* <a href="http://www.adhamdannaway.com/portfolio">http://www.adhamdannaway.com/portfolio</a>
-* <a href="http://www.timboelaars.nl/">http://www.timboelaars.nl/</a>
-* <a href="http://futoryan.prosite.com/">http://futoryan.prosite.com/</a>
-* <a href="http://playonpixels.prosite.com/21591/projects">http://playonpixels.prosite.com/21591/projects</a>
-* <a href="http://colintrenter.prosite.com/">http://colintrenter.prosite.com/</a>
-* <a href="http://calebmorris.prosite.com/">http://calebmorris.prosite.com/</a>
-* <a href="http://www.cullywright.com/">http://www.cullywright.com/</a>
-* <a href="http://yourjustlucky.com/">http://yourjustlucky.com/</a>
-* <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
-* <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
-* <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
+  var phaseValues = [];
+
+  for(var i = 0; i < 5; i++) {
+  	phaseValues.push(Math.sin(scrollVal + i));
+  }
+
+  var phase;
+
+  for (var i = 0; i < items.length; i++) {
+	switch (i % 5) {
+		case 0:
+			phase = phaseValues[0];
+			break;
+		case 1:
+			phase = phaseValues[1];
+			break;
+		case 2:
+			phase = phaseValues[2];
+			break;
+		case 3:
+			phase = phaseValues[3];
+			break;
+		case 4:
+			phase = phaseValues[4];
+			break;
+		default:
+			console.log("Hello, World.");
+	}
+
+	items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  }
+
+  // User Timing API to the rescue again. Seriously, it's worth learning.
+  // Super easy to create custom metrics.
+  window.performance.mark("mark_end_frame");
+  window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
+  if (frame % 10 === 0) {
+	var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
+	logAverageFrame(timesToUpdatePosition);
+  }
+}
+```
+*lastly, the number of pizzas on load were significantly reduced from 200 to 25
+```js
+// Generates the sliding pizzas when the page loads.
+/*
+Simon Optimizations:
+- There is no need to generate 200 pizzas on load, just enough to fill the screen.
+*/
+document.addEventListener('DOMContentLoaded', function() {
+  var cols = 8;
+  var s = 256;
+  for (var i = 0; i < 25; i++) {
+	var elem = document.createElement('img');
+	elem.className = 'mover';
+	elem.src = "images/pizza.png";
+	elem.style.height = "100px";
+	elem.style.width = "73.333px";
+	elem.basicLeft = (i % cols) * s;
+	elem.style.top = (Math.floor(i / cols) * s) + 'px';
+	document.querySelector("#movingPizzas1").appendChild(elem);
+  }
+  updatePositions();
+});
+```

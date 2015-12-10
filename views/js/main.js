@@ -466,9 +466,9 @@ var resizePizzas = function(size) {
   var newwidth = (allPizzas[0].offsetWidth + dx) + 'px';
 
   function changePizzaSizes(size) {
-	for (var i = 0; i < allPizzasLength; i++) {
-	  allPizzas[i].style.width = newwidth;
-	}
+  	for (var i = 0; i < allPizzasLength; i++) {
+  	  allPizzas[i].style.width = newwidth;
+  	}
   }
 
   changePizzaSizes(size);
@@ -558,8 +558,6 @@ function updatePositions() {
 		default:
 			console.log("Hello, World.");
 	}
-	//var phase = Math.sin(scrollVal + (i % 5));
-	// delete above line
 
 	items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
