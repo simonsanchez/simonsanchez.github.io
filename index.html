@@ -8,10 +8,23 @@
 	<title>Cameron Pittman: Portfolio</title>
 
 	<!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
-	<link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+	<!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"> -->
+	<!-- Instead of linking to this Google Font we employ an @font-face. -->
+
 
 	<!-- The style.css file is relatively short, so we inline the CSS here. -->
 	<style>
+		@font-face {
+			font-family: OpenSans;
+			src: url(opensans400.woff2);
+			font-weight: normal;
+		}
+		@font-face {
+			font-family: OpenSans;
+			src: url(opensans700.woff2);
+			font-weight: bold;
+		}
+
 		html {
 			font-size: 100%;
 			overflow-y: scroll;
@@ -19,7 +32,7 @@
 			-ms-text-size-adjust: 100%;
 			-webkit-text-size-adjust: none;
 		}
-		body { margin: 0; font-size: 14px; line-height: 1.61; font-weight: 400; }
+		body { margin: 0; font-size: 14px; line-height: 1.61; font-weight: normal; }
 		body, button, input, select, textarea { font-family: 'Open Sans', sans-serif; color: #333; }
 
 		a { color: #12C; }
@@ -73,11 +86,12 @@
 			// Optional TODO: replace with your Google Analytics profile ID.
 			ga('create', 'UA-XXXX-Y');
 			ga('send', 'pageview');
-	</script>
+		</script>
 
-	<!-- Here we use the async attribute for our Javascript. -->
-	<script async src="http://www.google-analytics.com/analytics.js"></script>
-	<script async src="js/perfmatters.js"></script>
+		<!-- Here we use the async attribute for our Javascript. -->
+		<script async src="http://www.google-analytics.com/analytics.js"></script>
+		<script async src="js/perfmatters.js"></script>
+
 	</head>
 
 	<body>
@@ -112,8 +126,7 @@
 					</li>
 
 					<li>
-						<!-- <img style="width: 100px;" src="views/images/pizzeria.jpg"> -->
-						<img style="width: 100px;" src="img/pizzeria.jpg">
+						<img style="width: 100px;" src="views/images/pizzeria.jpg">
 						<a href="views/pizza.html">Cam's Pizzeria</a>
 						<p>Who wants a performant pizza?</p>
 					</li>
@@ -123,5 +136,5 @@
 			<footer>
 				<p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
 			</footer>
-		</body>
-		</html>
+	</body>
+</html>
